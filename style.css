@@ -1,3 +1,5 @@
+h1 { margin-top: 0; } /* fits on my screen with console open */
+
 .axis path,
 .axis line {
 	fill: none;
