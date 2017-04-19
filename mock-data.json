@@ -1,0 +1,12 @@
+[
+	{"id": "1", "content": "World War II", "className": "History", "group": "0", "start": "1939", "end": "1945"},
+	{"id": "2", "content": "CoCom", "className": "History", "group": "0", "start": "1945", "end": "1994"},
+	{"id": "3", "content": "Cold War", "className": "History", "group": "0", "start": "1947", "end": "1991"},
+	{"id": "4", "content": "Sensorama", "className": "HMD", "group": "1", "start": "1960"},
+	{"id": "5", "content": "The Sword of Damocles", "className": "HMD", "group": "1", "start": "1968"},
+	{"id": "6", "content": "Forte VFX1", "className": "HMD", "group": "1", "start": "1995"},
+	{"id": "7", "content": "Virtual Boy", "className": "HMD", "group": "1", "start": "1995"},
+	{"id": "8", "content": "The Matrix", "className": "Movie", "group": "2", "start": "1999"},
+	{"id": "9", "content": "Paprika", "className": "Movie", "group": "2", "start": "2006"},
+	{"id": "10", "content": "Pygmalion's Spectacles", "className": "Literature", "group": "3", "start": "1935"}
+]
