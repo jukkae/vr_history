@@ -35,12 +35,18 @@ d3.json("mock-data.json", function(data) {
       .attr("data-expanded", false)
       .attr("fill", function(d) { return color(d.group); })
       .on("click", function(d) {
-        var c = d3.select("#cell" + d.id);
-        c.attr("r", radius+100);
-        var desc = d.content + " ("+ d.start + ")\n";
-        desc += d.className;
-        alert(desc); // TODO show this on the node itself
-        c.attr("r", radius);
+        var c = d3.select("#cell" + d.id); // can't get 'this' to work here
+        if(c.attr("data-expanded") == "false") {
+          c.transition().duration(500).attr("r", radius+100);
+          c.attr("data-expanded", true);
+          var desc = d.content + " ("+ d.start + ")\n";
+          desc += d.className;
+          //alert(desc); // TODO show this on the node itself
+        }
+        else {
+          c.transition().duration(500).attr("r", radius);
+          c.attr("data-expanded", false);
+        }
       })
       .call(d3.drag()
         .on("start", dragstarted)
