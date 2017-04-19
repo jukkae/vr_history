@@ -39,13 +39,14 @@ d3.json("mock-data.json", function(data) {
       .text(function(d) { return d.content + "\n" + formatValue(d.start); });
 
   var simulation = d3.forceSimulation(data)
-    .force("x", d3.forceX(function(d) { return x(d.start); }).strength(0.1))
+    .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
     .force("y", d3.forceY(function(d) { return d.group * trackDist; }))
     .force("collide", d3.forceCollide(minDist));
 
   
   simulation.on("tick", function() {
     cell.attr("cx", function(d) { return d.x; }); 
+    cell.attr("cy", function(d) { return d.y; });
   });
 
 });
