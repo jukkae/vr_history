@@ -30,13 +30,17 @@ d3.json("mock-data.json", function(data) {
     .selectAll("circle")
     .data(data)
     .enter().append("circle")
-      .attr("id", function(d) { return d.id; })
+      .attr("id", function(d) { return "cell" + d.id; })
       .attr("r", radius)
+      .attr("data-expanded", false)
       .attr("fill", function(d) { return color(d.group); })
       .on("click", function(d) {
+        var c = d3.select("#cell" + d.id);
+        c.attr("r", radius+100);
         var desc = d.content + " ("+ d.start + ")\n";
         desc += d.className;
-        alert(desc);
+        alert(desc); // TODO show this on the node itself
+        c.attr("r", radius);
       })
 
   cell
@@ -46,7 +50,7 @@ d3.json("mock-data.json", function(data) {
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
     .force("y", d3.forceY(function(d) { return d.group * trackDist; }))
-    .force("collide", d3.forceCollide(minDist));
+    .force("collide", d3.forceCollide(minDist)); // TODO collision on a per-node basis -> push things out when expanding
 
   
   simulation.on("tick", function() {
