@@ -19,3 +19,9 @@ h1 { margin-top: 0; } /* fits on my screen with console open */
 .cells :hover circle {
   fill: red;
 }
+
+text {
+	fill: black;
+	stroke: black;
+	font: 20px sans-serif;
+}

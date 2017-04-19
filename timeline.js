@@ -35,17 +35,19 @@ d3.json("mock-data.json", function(data) {
       .attr("data-expanded", false)
       .attr("fill", function(d) { return color(d.group); })
       .on("click", function(d) {
-        var c = d3.select("#cell" + d.id); // can't get 'this' to work here
+        var c = d3.select(this);
         if(c.attr("data-expanded") == "false") {
           c.transition().duration(500).attr("r", radius+100);
           c.attr("data-expanded", true);
           var desc = d.content + " ("+ d.start + ")\n";
           desc += d.className;
-          //alert(desc); // TODO show this on the node itself
+          d3.select(this.parentNode).append("text").attr("id", "text" + d.id).text(desc); // TODO make prettier
         }
         else {
           c.transition().duration(500).attr("r", radius);
           c.attr("data-expanded", false);
+          simulation.force("collide").radius(radius);
+          d3.select("#text" + d.id).remove();
         }
       })
       .call(d3.drag()
@@ -60,7 +62,7 @@ d3.json("mock-data.json", function(data) {
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
     .force("y", d3.forceY(function(d) { return d.group * trackDist; }).strength(1))
-    .force("collide", d3.forceCollide(minDist)); // TODO collision on a per-node basis -> push things out when expanding
+    .force("collide", d3.forceCollide(function(d) { return minDist; })); // TODO collision on a per-node basis -> push things out when expanding
 
   
   simulation.on("tick", function() {
@@ -68,22 +70,21 @@ d3.json("mock-data.json", function(data) {
     cell.attr("cy", function(d) { return d.y; });
   });
 
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
 
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-}
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
 
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
-
-function dragended(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
-}
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
 
 });
