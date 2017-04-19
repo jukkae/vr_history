@@ -42,6 +42,10 @@ d3.json("mock-data.json", function(data) {
         alert(desc); // TODO show this on the node itself
         c.attr("r", radius);
       })
+      .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
 
   cell
     .append("title")
@@ -49,7 +53,7 @@ d3.json("mock-data.json", function(data) {
 
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
-    .force("y", d3.forceY(function(d) { return d.group * trackDist; }))
+    .force("y", d3.forceY(function(d) { return d.group * trackDist; }).strength(1))
     .force("collide", d3.forceCollide(minDist)); // TODO collision on a per-node basis -> push things out when expanding
 
   
@@ -58,10 +62,22 @@ d3.json("mock-data.json", function(data) {
     cell.attr("cy", function(d) { return d.y; });
   });
 
-});
 
-function type(d) {
-  if (!d.start) return;
-  d.start = +d.start;
-  return d;
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
 }
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+});
