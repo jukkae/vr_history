@@ -27,12 +27,16 @@ d3.json("mock-data.json", function(data) {
 
   var cell = g.append("g")
     .attr("class", "nodes")
-    .on("click", function() {alert("TODO");})
     .selectAll("circle")
     .data(data)
     .enter().append("circle")
       .attr("r", radius)
       .attr("fill", function(d) { return color(d.group); })
+      .on("click", function(d) {
+        var desc = d.content + " ("+ d.start + ")\n";
+        desc += d.className;
+        alert(desc);
+      })
 
   cell
     .append("title")
