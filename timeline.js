@@ -30,6 +30,7 @@ d3.json("mock-data.json", function(data) {
     .selectAll("circle")
     .data(data)
     .enter().append("circle")
+      .attr("id", function(d) { return d.id; })
       .attr("r", radius)
       .attr("fill", function(d) { return color(d.group); })
       .on("click", function(d) {
