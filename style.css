@@ -39,6 +39,7 @@ text {
 }
 
 .item.expanded {
+	padding: 5px;
 	width: 120px;
 	height: 300px;
 	top: 0 !important; /* TODO yeh this should probably be done in js, but whatever */
@@ -56,11 +57,13 @@ text {
 }
 
 .item.collapsed div.content {
+	font-size: 0px; /* avoid accidental clicks on text */
 	opacity: 0;
-	transition: 1000ms;
+	transition: all 1000ms;
 }
 
 .item.expanded div.content {
-	opacity: 2;
+	font-size: 16px;
+	opacity: 1;
 	transition: 1000ms;
 }
