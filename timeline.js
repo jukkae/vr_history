@@ -67,7 +67,6 @@ d3.json("mock-data.json", function(data) {
   function dragstarted(d) {
     d.fx = d.x;
     d.fy = d.y;
-    d.fixed = "true"; //d.fx & d.fy break this
   }
 
   function dragged(d) {
