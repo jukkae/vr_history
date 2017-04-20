@@ -19,6 +19,19 @@ var g = svg.append("g")
 d3.json("mock-data.json", function(data) {
 	x.domain(d3.extent(data, function(d) { return d.start; }));
 	
+  // start work on divs
+  var div = d3.select('body')
+    .selectAll('div')
+    .data(data).enter()
+    .append('div')
+    .attr("class", "item")
+    .text(function(d) { return d.content; })
+    .call(d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended));
+
+
   // X-axis
   g.append("g")
     .attr("class", "axis axis--x")
@@ -68,6 +81,8 @@ d3.json("mock-data.json", function(data) {
   simulation.on("tick", function() {
     cell.attr("cx", function(d) { return d.x; }); 
     cell.attr("cy", function(d) { return d.y; });
+    div.style("left", function(d) { return d.x + "px"; });
+    div.style("top", function(d) { return d.y + "px"; });
   });
 
   function dragstarted(d) {

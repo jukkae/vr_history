@@ -25,3 +25,10 @@ text {
 	stroke: black;
 	font: 20px sans-serif;
 }
+
+.item {
+	position: absolute;
+	border-radius: 50%;
+	background: red;
+	text-align: justify;
+}
