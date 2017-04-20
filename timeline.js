@@ -65,8 +65,10 @@ d3.json("mock-data.json", function(data) {
   });
 
   function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
+    // d.fixed = "true"; //d.fx & d.fy somehow b
   }
 
   function dragged(d) {
@@ -75,6 +77,7 @@ d3.json("mock-data.json", function(data) {
   }
 
   function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
   }
