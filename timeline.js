@@ -42,7 +42,9 @@ d3.json("mock-data.json", function(data) {
 
     div.append('div')
       .attr("class", "content")
-      .text(d => d.content );
+      .text(function(d) {
+        return d.content + " (" + d.start + ")";
+      });
 
 
   // X-axis - I suppose it's still easiest to do that in svg?
@@ -63,9 +65,9 @@ d3.json("mock-data.json", function(data) {
   });
 
   function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
+    d.fixed = "true"; //d.fx & d.fy break this
   }
 
   function dragged(d) {
@@ -74,7 +76,6 @@ d3.json("mock-data.json", function(data) {
   }
 
   function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
   }
