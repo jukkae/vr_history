@@ -1,5 +1,11 @@
 h1 { margin-top: 0; } /* fits on my screen with console open */
 
+svg {
+	position: absolute;
+	top: 58px; /* TODO yeah it's crap */
+	left: 30px;
+}
+
 .axis path,
 .axis line {
 	fill: none;

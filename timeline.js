@@ -27,7 +27,6 @@ d3.json("mock-data.json", function(data) {
     .attr("class", "item collapsed")
     .attr("id", d => { "i" + d.id; } )
     .style("background-color", d => color(d.group) )
-    //.text(function(d) { return d.content; })
     .on("click", function (d) {
       var c = d3.select(this);
       if(c.attr("class") != "item expanded") {
@@ -46,19 +45,11 @@ d3.json("mock-data.json", function(data) {
       .text(d => d.content );
 
 
-  // X-axis - I suppose it's still easiest to do that here?
+  // X-axis - I suppose it's still easiest to do that in svg?
   g.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x).ticks(20, ""));
-
-  // TODO why are these still required? see how these can be totally removed
-  var cell = g.append("g")
-    .attr("class", "nodes")
-    .selectAll("circle")
-    .data(data)
-    .enter().append("circle")
-      .attr("r", radius)
 
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
@@ -67,10 +58,8 @@ d3.json("mock-data.json", function(data) {
 
   
   simulation.on("tick", function() {
-    cell.attr("cx", function(d) { return d.x; }); 
-    cell.attr("cy", function(d) { return d.y; });
-    div.style("left", function(d) { return d.x + "px"; });
-    div.style("top", function(d) { return d.y + "px"; });
+    div.style("left", function(d) { return d.x + 72 + "px"; }); // TODO yeah magic numbers, sue me
+    div.style("top", function(d) { return d.y + 100 + "px"; });
   });
 
   function dragstarted(d) {
