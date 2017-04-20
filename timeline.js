@@ -24,12 +24,26 @@ d3.json("mock-data.json", function(data) {
     .selectAll('div')
     .data(data).enter()
     .append('div')
-    .attr("class", "item")
+    .attr("class", "item collapsed")
+    .attr("id", function(d) { return "i" + d.id; })
+    .style("background", function(d) { return color(d.group); })
     .text(function(d) { return d.content; })
+    .on("click", function (d) {
+      var c = d3.select(this);
+      if(c.attr("class") != "item expanded") {
+        c.attr("class", "item expanded");
+      } else {
+        c.attr("class", "item collapsed");
+      }
+    })
     .call(d3.drag()
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended));
+
+    div.append('div')
+      .attr("class", "content")
+      .text("dsfsdfsfd");
 
 
   // X-axis

@@ -29,6 +29,26 @@ text {
 .item {
 	position: absolute;
 	border-radius: 50%;
-	background: red;
+	text-overflow: ellipsis;
 	text-align: justify;
+}
+
+.item.expanded {
+	width: 60px;
+	height: 60px;
+	transition: all 750ms;
+}
+
+.item.collapsed {
+	width: 30px;
+	height: 30px;
+	transition: all 750ms;
+}
+
+.item.collapsed div.content {
+	display: none;
+}
+
+.item.expanded div.content {
+
 }
