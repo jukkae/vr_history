@@ -40,8 +40,8 @@ text {
 }
 
 .item.collapsed {
-	width: 30px;
-	height: 30px;
+	width: 16px;
+	height: 16px;
 	transition: all 750ms;
 }
 

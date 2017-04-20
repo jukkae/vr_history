@@ -17,17 +17,17 @@ var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.json("mock-data.json", function(data) {
-	x.domain(d3.extent(data, function(d) { return d.start; }));
-	
+	x.domain(d3.extent(data, d => d.start ));
+
   // start work on divs
   var div = d3.select('body')
     .selectAll('div')
     .data(data).enter()
     .append('div')
     .attr("class", "item collapsed")
-    .attr("id", function(d) { return "i" + d.id; })
-    .style("background", function(d) { return color(d.group); })
-    .text(function(d) { return d.content; })
+    .attr("id", d => { "i" + d.id; } )
+    .style("background-color", d => color(d.group) )
+    //.text(function(d) { return d.content; })
     .on("click", function (d) {
       var c = d3.select(this);
       if(c.attr("class") != "item expanded") {
@@ -43,48 +43,22 @@ d3.json("mock-data.json", function(data) {
 
     div.append('div')
       .attr("class", "content")
-      .text("dsfsdfsfd");
+      .text(d => d.content );
 
 
-  // X-axis
+  // X-axis - I suppose it's still easiest to do that here?
   g.append("g")
     .attr("class", "axis axis--x")
     .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x).ticks(20, ""));
 
+  // TODO why are these still required? see how these can be totally removed
   var cell = g.append("g")
     .attr("class", "nodes")
     .selectAll("circle")
     .data(data)
     .enter().append("circle")
-      .attr("id", function(d) { return "cell" + d.id; })
       .attr("r", radius)
-      .attr("data-expanded", false)
-      .attr("fill", function(d) { return color(d.group); })
-      .on("click", function(d) {
-        var c = d3.select(this);
-        if(c.attr("data-expanded") == "false") {
-          c.transition().duration(500).attr("r", radius+100);
-          c.attr("data-expanded", true);
-          var desc = d.content + " ("+ d.start + ")\n";
-          desc += d.className;
-          d3.select(this.parentNode).append("text").attr("id", "text" + d.id).text(desc); // TODO make prettier
-        }
-        else {
-          c.transition().duration(500).attr("r", radius);
-          c.attr("data-expanded", false);
-          simulation.force("collide").radius(radius);
-          d3.select("#text" + d.id).remove();
-        }
-      })
-      .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
-
-  cell
-    .append("title")
-      .text(function(d) { return d.content + "\n" + formatValue(d.start); });
 
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
