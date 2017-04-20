@@ -43,7 +43,7 @@ text {
 	width: 120px;
 	height: 300px;
 	top: 0 !important; /* TODO yeh this should probably be done in js, but whatever */
-	border-radius: 0%;
+	border-radius: 5px;
 	/* opacity: 0.5; would be nice to get this working */
 	transition: all 500ms;
 }
