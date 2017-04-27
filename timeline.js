@@ -6,7 +6,17 @@ var height = +svg.attr("height") - margin.top - margin.bottom;
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 var radius = 8;
 var minDist = radius + 1;
-var trackDist = 50;
+var trackDist = 30; // TODO dynamically by extent and height
+
+// pseudo-enum for handling groups
+// TODO missing some categories
+var groups = {
+  "History": 0,
+  "HMD": 1,
+  "Movie": 2,
+  "Literature": 3,
+  "": 4
+}
 
 var formatValue = d3.format("d");
 
@@ -16,21 +26,20 @@ var x = d3.scaleLinear()
 var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("mock-data.json", function(data) {
-	x.domain(d3.extent(data, d => d.start ));
+d3.json("data2.json", function(data) {
+	x.domain(d3.extent(data, d => d.start_year )); // TODO fix extent
 
-  // start work on divs
   var div = d3.select('body')
     .selectAll('div')
     .data(data).enter()
     .append('div')
     .attr("class", "item collapsed")
     .attr("id", d => { "i" + d.id; } )
-    .style("background-color", d => color(d.group) )
+    .style("background-color", d => color(groups[d.type]) )
     .on("click", function (d) {
       var c = d3.select(this);
       if(c.attr("class") != "item expanded") {
-        c.attr("class", "item expanded");
+        c.attr("class", "item expanded"); // TODO also give expanded to d
       } else {
         c.attr("class", "item collapsed");
       }
@@ -43,7 +52,7 @@ d3.json("mock-data.json", function(data) {
     div.append('div')
       .attr("class", "content")
       .text(function(d) {
-        return d.content + " (" + d.start + ")";
+        return d.name + " (" + d.start_year + ")";
       });
 
 
@@ -54,8 +63,8 @@ d3.json("mock-data.json", function(data) {
       .call(d3.axisBottom(x).ticks(20, ""));
 
   var simulation = d3.forceSimulation(data)
-    .force("x", d3.forceX(function(d) { return x(d.start); }).strength(1))
-    .force("y", d3.forceY(function(d) { return d.group * trackDist; }).strength(1))
+    .force("x", d3.forceX(function(d) { return x(d.start_year); }).strength(1))
+    .force("y", d3.forceY(function(d) { return groups[d.type] * trackDist; }).strength(1))
     .force("collide", d3.forceCollide(function(d) { return minDist; })); // TODO collision on a per-node basis -> push things out when expanding
 
   
@@ -68,7 +77,7 @@ d3.json("mock-data.json", function(data) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
-    // d.fixed = "true"; //d.fx & d.fy somehow b
+    // d.fixed = "true"; //d.fx & d.fy break this
   }
 
   function dragged(d) {
