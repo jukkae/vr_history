@@ -39,6 +39,8 @@ text {
 }
 
 .item.expanded {
+	-webkit-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
 	padding: 5px;
 	width: 120px;
 	height: 300px;
