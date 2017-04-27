@@ -52,6 +52,8 @@ text {
 }
 
 .item.collapsed {
+	-webkit-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;

@@ -1,6 +1,5 @@
 // TODO performance!
-// TODO mouseover name
-// TODO Safari zoom out issue
+// TODO Safari expand issue
 // TODO zooming (vertical and horizontal)
 // TODO history group different behaviour
 // TODO translucent lines for decades
