@@ -4,6 +4,8 @@
 // TODO history group different behaviour
 // TODO translucent lines for decades
 // TODO images
+// TODO content
+// TODO flip to vertical
 
 var svg = d3.select("svg");
 var margin = { top: 50, right: 50, bottom: 50, left: 50 };
@@ -33,7 +35,7 @@ var x = d3.scaleLinear()
 var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data2.json", function(data) {
+d3.json("test_json.json", function(data) {
 	x.domain(d3.extent(data, d => d.start_year )); // TODO fix extent
 
   var div = d3.select('body')
@@ -60,7 +62,7 @@ d3.json("data2.json", function(data) {
     div.append('div')
       .attr("class", "content")
       .text(function(d) {
-        return d.name + " (" + d.start_year + ")";
+        return d.name + " (" + d.start_year + ") " + d.description;
       });
 
   // X-axis - I suppose it's still easiest to do that in svg?
