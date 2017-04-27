@@ -15,7 +15,7 @@ var groups = {
   "HMD": 1,
   "Movie": 2,
   "Literature": 3,
-  "": 4
+  "NONE": 4
 };
 
 var formatValue = d3.format("d");
@@ -35,7 +35,7 @@ d3.json("data2.json", function(data) {
     .append('div')
     .attr("class", "item collapsed")
     .attr("id", d => { "i" + d.id; } )
-    .style("background-color", d => color(groups[d.type]) )
+    .style("background-color", d => color(groups[d.type === "" ? "NONE" : d.type]) )
     .on("click", function (d) {
       var c = d3.select(this);
       if(c.attr("class") != "item expanded") {
@@ -64,7 +64,7 @@ d3.json("data2.json", function(data) {
 
   var simulation = d3.forceSimulation(data)
     .force("x", d3.forceX(function(d) { return x(d.start_year); }).strength(1))
-    .force("y", d3.forceY(function(d) { return groups[d.type] * trackDist; }).strength(1))
+    .force("y", d3.forceY(function(d) { return groups[d.type === "" ? "NONE" : d.type] * trackDist; }).strength(1))
     .force("collide", d3.forceCollide(function(d) { return minDist; })); // TODO collision on a per-node basis -> push things out when expanding
 
   
