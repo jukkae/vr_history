@@ -16,7 +16,7 @@ var groups = {
   "Movie": 2,
   "Literature": 3,
   "": 4
-}
+};
 
 var formatValue = d3.format("d");
 
