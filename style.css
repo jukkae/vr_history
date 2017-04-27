@@ -36,6 +36,7 @@ text {
 	position: absolute;
 	text-overflow: ellipsis;
 	text-align: justify;
+	overflow: auto;
 }
 
 .item.expanded {
@@ -49,7 +50,6 @@ text {
 	border-radius: 5px;
 	/* opacity: 0.5; would be nice to get this working */
 	transition: all 500ms;
-	overflow: auto;
 }
 
 .item.collapsed {
