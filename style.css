@@ -41,7 +41,7 @@ text {
 .item.expanded {
 	-webkit-transform: translate(-50%, 0);
 	-moz-transform: translate(-50%, 0);
-	z-index: 1000;
+	z-index: 1000; /* TODO fix collapse animation z-index transition, maybe with a delay or w/e */
 	padding: 5px;
 	width: 120px;
 	height: 300px;

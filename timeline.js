@@ -1,3 +1,11 @@
+// TODO performance!
+// TODO mouseover name
+// TODO Safari zoom out issue
+// TODO zooming (vertical and horizontal)
+// TODO history group different behaviour
+// TODO translucent lines for decades
+// TODO images
+
 var svg = d3.select("svg");
 var margin = { top: 50, right: 50, bottom: 50, left: 50 };
 var width = +svg.attr("width") - margin.left - margin.right;
@@ -34,6 +42,7 @@ d3.json("data2.json", function(data) {
     .data(data).enter()
     .append('div')
     .attr("class", "item collapsed")
+    .attr("title", d => { return d.name; } )
     .attr("id", d => { "i" + d.id; } )
     .style("background-color", d => color(groups[d.type === "" ? "NONE" : d.type]) )
     .on("click", function (d) {
@@ -54,7 +63,6 @@ d3.json("data2.json", function(data) {
       .text(function(d) {
         return d.name + " (" + d.start_year + ")";
       });
-
 
   // X-axis - I suppose it's still easiest to do that in svg?
   g.append("g")
