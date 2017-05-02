@@ -36,12 +36,12 @@ text {
 	position: absolute;
 	text-overflow: ellipsis;
 	text-align: justify;
-	overflow: auto;
 }
 
 .item.expanded {
 	-webkit-transform: translate(-50%, 0);
 	-moz-transform: translate(-50%, 0);
+	overflow: auto;
 	z-index: 1000; /* TODO fix collapse animation z-index transition, maybe with a delay or w/e */
 	padding: 5px;
 	width: 120px;
@@ -55,6 +55,7 @@ text {
 .item.collapsed {
 	-webkit-transform: translate(-50%, 0);
 	-moz-transform: translate(-50%, 0);
+	overflow: hidden;
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
@@ -65,11 +66,11 @@ text {
 .item.collapsed div.content {
 	font-size: 0px; /* avoid accidental clicks on text */
 	opacity: 0;
-	transition: all 1000ms;
+	transition: all 500ms;
 }
 
 .item.expanded div.content {
 	font-size: 16px;
 	opacity: 1;
-	transition: 1000ms;
+	transition: 500ms;
 }

@@ -1,11 +1,9 @@
-// TODO performance!
-// TODO Safari expand issue
 // TODO zooming (vertical and horizontal)
 // TODO history group different behaviour
+// TODO performance!
+// TODO Safari expand issue
 // TODO translucent lines for decades
 // TODO images
-// TODO content
-// TODO flip to vertical
 
 var svg = d3.select("svg");
 var margin = { top: 50, right: 50, bottom: 50, left: 50 };
