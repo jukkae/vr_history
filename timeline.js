@@ -33,7 +33,7 @@ var x = d3.scaleLinear()
 var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("test_json.json", function(data) {
+d3.json("data2.json", function(data) {
 	x.domain(d3.extent(data, d => d.start_year )); // TODO fix extent
 
   var div = d3.select('body')
