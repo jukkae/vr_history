@@ -1,10 +1,3 @@
-// TODO zooming (vertical and horizontal)
-// TODO history group different behaviour
-// TODO performance!
-// TODO Safari expand issue
-// TODO translucent lines for decades
-// TODO images
-
 var svg = d3.select("svg");
 var margin = { top: 50, right: 50, bottom: 50, left: 50 };
 var width = +svg.attr("width") - margin.left - margin.right;
@@ -13,10 +6,9 @@ var height = +svg.attr("height") - margin.top - margin.bottom;
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 var radius = 8;
 var minDist = radius + 1;
-var trackDist = 30; // TODO dynamically by extent and height
+var trackDist = 30;
 
 // pseudo-enum for handling groups
-// TODO missing some categories
 var groups = {
   "History": 0,
   "HMD": 1,
